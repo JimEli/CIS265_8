@@ -1,4 +1,4 @@
-# Pima CIS265 Week #8 Project
+# Pima CC CIS265 Week #8 Project
 
 Develop a C program to perform several file I/O functions for the supplied "CIS265.txt" file. The user will be given a menu to choose from 
 the following options:
