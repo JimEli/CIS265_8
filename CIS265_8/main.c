@@ -13,10 +13,10 @@
 *  4 - Press (Q) to quit
 *
 * For user option # 1, first ask the user to enter the word that they like 
-* to search for in the ìCIS265.txtî file then display to the screen the 
+* to search for in the ‚ÄúCIS265.txt‚Äù file then display to the screen the 
 * entire file content including the found word(s) between straight brackets. 
 * At the end of the file, print a line saying how many occurrences have been 
-* found. For example, if the user enters the word ìsystemî as the search 
+* found. For example, if the user enters the word ‚Äúsystem‚Äù as the search 
 * word then the screen will display the following:
 *
 * I [like] potatoes and mushrooms. I aslo [like] watermelon. I forgot if I 
@@ -24,12 +24,12 @@
 *
 * Number of occurrences of the word "like" is 3
 *
-* For user option #2, ask the user how many lines from the ìCIS265.txtî 
+* For user option #2, ask the user how many lines from the ‚ÄúCIS265.txt‚Äù 
 * would like to be printed out to the screen. Once the number is entered, 
 * display the content to the screen 
 *
 * For user option #3, ask the use to type anything to be appended to the 
-* end of the current file ìCIS265.txtî. Once entered, permanently append it 
+* end of the current file ‚ÄúCIS265.txt‚Äù. Once entered, permanently append it 
 * to the file. If the user chooses to select option # 1 from the menu after 
 * appending then make sure you can search as well the newly appended text to 
 * the file.
@@ -143,29 +143,16 @@ bool readFile(const char *fileName, char **file) {
 
 // Command entry handled here.
 char fetchCommand(void) {
-	char input[3];  // Holds user input for number of array elements.
-
-	while (1) {
-		// Prompt and grab user input.
-		fputs(MENU_TEXT, stdout);
-		if (!fgets(input, sizeof input, stdin)) {
-			fputs("\nFatal program error!\n", stderr);
-			return 'q'; // Force quit.
-		}
-		else if (!strchr(input, '\n')) {
-			// input too long, eat remainder.
-			while (fgets(input, sizeof input, stdin) && !strchr(input, '\n'))
-				; // Empty body.
-			fputs("Too many characters input.\n", stdout);
-		}
-		else if (strlen(input) == 2) {
-			char command = tolower(input[0]);
-			if (strchr("slaq", command))
-				return command;
-			else
-				return '\0';
-		}
-	}
+	// Prompt and grab user input.
+	fputs(MENU_TEXT, stdout);
+	char command = getchar();
+	while (getchar() != '\n')
+		; // clear remaining characters & newline.
+	command = tolower(command);
+	if (strchr("slaq", command))
+		return command;
+	else
+		return '\0';
 }
 
 // Program starts here.
